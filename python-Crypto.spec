@@ -4,11 +4,11 @@
 Summary:	Python Cryptography Toolkit
 Summary(pl):	Kryptograficzny przybornik dla jêzyka Python
 Name:		python-%{module}
-Version:	1.9a6
+Version:	2.0
 Release:	3
 License:	Free
 Source0:	http://www.amk.ca/files/python/crypto/pycrypto-%{version}.tar.gz
-# Source0-md5:	cdcebdfd63e74754f57b9e9b0db4ea20
+# Source0-md5:	55f9875c554ede75ad605d2c7504d94f
 URL:		http://www.amk.ca/python/code/crypto.html
 Group:		Development/Languages/Python
 %pyrequires_eq	python-modules
