@@ -48,7 +48,7 @@ zaimplementowanych dla jêzyka Python. Pakiet zawiera miêdzy innymi:
 
 %build
 CFLAGS="%{rpmcflags}"
-export CLFAGS
+export CFLAGS
 python setup.py build
 
 %install
