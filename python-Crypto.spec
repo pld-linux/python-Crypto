@@ -1,6 +1,6 @@
 %include	/usr/lib/rpm/macros.python
 
-%define         module Crypto
+%define         module	Crypto
 
 Summary:	Python Cryptography Toolkit
 Summary(pl):	Kryptograficzny przybornik dla jêzyka Python
