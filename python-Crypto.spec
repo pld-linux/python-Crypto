@@ -30,17 +30,17 @@ implemented for use from Python. Among the contents of the package:
 - some demo programs (currently all quite old and outdated)
 
 %description -l pl
-Przybornik jest zbiorem kryptograficznych algorytmów i protoko³ów
+Ten przybornik jest zbiorem kryptograficznych algorytmów i protoko³ów
 zaimplementowanych dla jêzyka Python. Pakiet zawiera miêdzy innymi:
-- funkcje hashuj±ce: MD2, MD4, RIPEMD
+- funkcje haszuj±ce: MD2, MD4, RIPEMD
 - blokowe algorytmy szyfruj±ce: AES,ARC2, Blowfish, CAST, DES, Triple-DES,
   IDEA, RC5
 - strumieniowe algorytmu szyfruj±ce: ARC4, zwyk³y XOR
 - algorytmy z kluczem publicznym: RSA, DSA,ElGamal, qNEW
-- protocols: All-or-nothing transforms, chaffing/winnowing 
+- protoko³y: przekszta³cenia wszystko-albo-nic, chaffing/winnowing
 - inne: RFC1751 modu³ do konwersji kluczy 128 bitowych w zbiory s³ów
   angielskich, test liczb pierwszych
-- programy demo (aktualnie odrobine starych)
+- programy demo (aktualnie odrobinê starych)
 
 %prep
 %setup -q -n pycrypto-%{version}
