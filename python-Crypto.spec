@@ -14,7 +14,6 @@ Group:		Development/Languages/Python
 %pyrequires_eq	python-modules
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2
-BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
