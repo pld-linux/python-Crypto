@@ -9,6 +9,7 @@ Version:	1.9a4
 Release:	1
 License:	Free
 Source0:	http://www.amk.ca/files/python/pycrypto-%{version}.tar.gz
+# Source0-md5:	bff31078a531c8fc617c01fe72aacfbb
 URL:		http://www.amk.ca/python/code/crypto.html
 Group:		Development/Languages/Python
 %pyrequires_eq	python-modules
