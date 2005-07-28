@@ -4,11 +4,11 @@
 Summary:	Python Cryptography Toolkit
 Summary(pl):	Kryptograficzny przybornik dla jêzyka Python
 Name:		python-%{module}
-Version:	2.0
-Release:	4
+Version:	2.0.1
+Release:	1
 License:	Free
 Source0:	http://www.amk.ca/files/python/crypto/pycrypto-%{version}.tar.gz
-# Source0-md5:	55f9875c554ede75ad605d2c7504d94f
+# Source0-md5:	4d5674f3898a573691ffb335e8d749cd
 URL:		http://www.amk.ca/python/code/crypto.html
 Group:		Development/Languages/Python
 %pyrequires_eq	python-modules
@@ -57,28 +57,20 @@ install -d $RPM_BUILD_ROOT%{py_sitedir}
 python setup.py install \
 	--root=$RPM_BUILD_ROOT --optimize=2
 
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/%{module}{,/*}/*.py
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ACKS ChangeLog README TODO Doc Demo
+%doc ACKS ChangeLog README TODO Doc
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
-
 %dir %{py_sitedir}/%{module}/Cipher
-%attr(755,root,root) %{py_sitedir}/%{module}/Cipher/*.so
-%{py_sitedir}/%{module}/Cipher/*.py[co]
-
 %dir %{py_sitedir}/%{module}/Hash
-%attr(755,root,root) %{py_sitedir}/%{module}/Hash/*.so
-%{py_sitedir}/%{module}/Hash/*.py[co]
-
 %dir %{py_sitedir}/%{module}/Protocol
-%{py_sitedir}/%{module}/Protocol/*.py[co]
-
 %dir %{py_sitedir}/%{module}/PublicKey
-%{py_sitedir}/%{module}/PublicKey/*.py[co]
-
 %dir %{py_sitedir}/%{module}/Util
-%{py_sitedir}/%{module}/Util/*.py[co]
+%attr(755,root,root) %{py_sitedir}/%{module}/*/*.so
+%{py_sitedir}/%{module}/*/*.py[co]
