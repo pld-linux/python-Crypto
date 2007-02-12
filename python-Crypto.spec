@@ -2,7 +2,7 @@
 %define		module	Crypto
 
 Summary:	Python Cryptography Toolkit
-Summary(pl):	Kryptograficzny przybornik dla jêzyka Python
+Summary(pl.UTF-8):   Kryptograficzny przybornik dla jÄ™zyka Python
 Name:		python-%{module}
 Version:	2.0.1
 Release:	3
@@ -29,18 +29,18 @@ implemented for use from Python. Among the contents of the package:
   of English words, primality testing
 - some demo programs (currently all quite old and outdated)
 
-%description -l pl
-Ten przybornik jest zbiorem kryptograficznych algorytmów i protoko³ów
-zaimplementowanych dla jêzyka Python. Pakiet zawiera miêdzy innymi:
-- funkcje haszuj±ce: MD2, MD4, RIPEMD
-- blokowe algorytmy szyfruj±ce: AES,ARC2, Blowfish, CAST, DES, Triple-DES,
+%description -l pl.UTF-8
+Ten przybornik jest zbiorem kryptograficznych algorytmÃ³w i protokoÅ‚Ã³w
+zaimplementowanych dla jÄ™zyka Python. Pakiet zawiera miÄ™dzy innymi:
+- funkcje haszujÄ…ce: MD2, MD4, RIPEMD
+- blokowe algorytmy szyfrujÄ…ce: AES,ARC2, Blowfish, CAST, DES, Triple-DES,
   IDEA, RC5
-- strumieniowe algorytmu szyfruj±ce: ARC4, zwyk³y XOR
+- strumieniowe algorytmu szyfrujÄ…ce: ARC4, zwykÅ‚y XOR
 - algorytmy z kluczem publicznym: RSA, DSA,ElGamal, qNEW
-- protoko³y: przekszta³cenia wszystko-albo-nic, chaffing/winnowing
-- inne: RFC1751 modu³ do konwersji kluczy 128 bitowych w zbiory s³ów
+- protokoÅ‚y: przeksztaÅ‚cenia wszystko-albo-nic, chaffing/winnowing
+- inne: RFC1751 moduÅ‚ do konwersji kluczy 128 bitowych w zbiory sÅ‚Ã³w
   angielskich, test liczb pierwszych
-- programy demo (aktualnie odrobinê starych)
+- programy demo (aktualnie odrobinÄ™ starych)
 
 %prep
 %setup -q -n pycrypto-%{version}
