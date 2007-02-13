@@ -2,7 +2,7 @@
 %define		module	Crypto
 
 Summary:	Python Cryptography Toolkit
-Summary(pl.UTF-8):   Kryptograficzny przybornik dla języka Python
+Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
 Name:		python-%{module}
 Version:	2.0.1
 Release:	3
