@@ -7,14 +7,16 @@ Name:		python-%{module}
 Version:	2.0.1
 Release:	6
 License:	Free
+Group:		Development/Languages/Python
 Source0:	http://www.amk.ca/files/python/crypto/pycrypto-%{version}.tar.gz
 # Source0-md5:	4d5674f3898a573691ffb335e8d749cd
 Patch0:		%{name}-warn.patch
 URL:		http://www.amk.ca/python/code/crypto.html
-Group:		Development/Languages/Python
-%pyrequires_eq	python-modules
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2
+BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
+%pyrequires_eq	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
