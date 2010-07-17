@@ -8,7 +8,8 @@ Release:	1
 License:	Public Domain and Python
 Group:		Development/Languages/Python
 Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
-# Source0-md5:	1d3eb04f06e6f09a080bc37fb019f9bf
+#  Source0-md5:	1d3eb04f06e6f09a080bc37fb019f9bf
+Patch0:		optflags.patch
 URL:		http://www.dlitz.net/software/pycrypto/
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2
@@ -48,6 +49,7 @@ zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 
 %prep
 %setup -q -n pycrypto-%{version}
+%patch0 -p1
 
 %build
 export CFLAGS="%{rpmcflags}"
