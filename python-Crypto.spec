@@ -1,30 +1,31 @@
-
 %define		module	Crypto
-
-Summary:	Python Cryptography Toolkit
+Summary:	PyCrypto - The Python Cryptography Toolkit
 Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
 Name:		python-%{module}
-Version:	2.0.1
-Release:	8
-License:	Free
+Version:	2.1.0
+Release:	1
+# Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
+License:	Public Domain and Python
 Group:		Development/Languages/Python
-Source0:	http://www.amk.ca/files/python/crypto/pycrypto-%{version}.tar.gz
-# Source0-md5:	4d5674f3898a573691ffb335e8d749cd
-Patch0:		%{name}-warn.patch
-URL:		http://www.amk.ca/python/code/crypto.html
+Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
+# Source0-md5:	1d3eb04f06e6f09a080bc37fb019f9bf
+URL:		http://www.dlitz.net/software/pycrypto/
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2
 BuildRequires:	python-modules
 BuildRequires:	rpm-pythonprov
-%pyrequires_eq	python-modules
+BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# Don't want provides for python shared objects
+%define		_noautoprovfiles	%{py_sitedir}/%{module}/.*/.*.so
 
 %description
 The Toolkit is a collection of cryptographic algorithms and protocols,
 implemented for use from Python. Among the contents of the package:
 - hash functions: MD2, MD4, RIPEMD
-- block encryption algorithms: AES, ARC2, Blowfish, CAST, DES, Triple-DES,
-  IDEA, RC5
+- block encryption algorithms: AES, ARC2, Blowfish, CAST, DES,
+  Triple-DES, IDEA, RC5
 - stream encryption algorithms: ARC4, simple XOR
 - public-key algorithms: RSA, DSA, ElGamal, qNEW
 - protocols: All-or-nothing transforms, chaffing/winnowing
@@ -36,8 +37,8 @@ implemented for use from Python. Among the contents of the package:
 Ten przybornik jest zbiorem kryptograficznych algorytmów i protokołów
 zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 - funkcje haszujące: MD2, MD4, RIPEMD
-- blokowe algorytmy szyfrujące: AES,ARC2, Blowfish, CAST, DES, Triple-DES,
-  IDEA, RC5
+- blokowe algorytmy szyfrujące: AES,ARC2, Blowfish, CAST, DES,
+  Triple-DES, IDEA, RC5
 - strumieniowe algorytmu szyfrujące: ARC4, zwykły XOR
 - algorytmy z kluczem publicznym: RSA, DSA,ElGamal, qNEW
 - protokoły: przekształcenia wszystko-albo-nic, chaffing/winnowing
@@ -47,34 +48,40 @@ zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 
 %prep
 %setup -q -n pycrypto-%{version}
-%patch0 -p1
 
 %build
-CFLAGS="%{rpmcflags}"
-export CFLAGS
-python setup.py build
+export CFLAGS="%{rpmcflags}"
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{py_sitedir}
+%{__python} setup.py install \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 
-python setup.py install \
-	--root=$RPM_BUILD_ROOT --optimize=2
+%py_postclean
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/%{module}{,/*}/*.py
+rm -rf $RPM_BUILD_ROOT%{py_sitedir}/Crypto/SelfTest
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ACKS ChangeLog README TODO Doc
+%doc ACKS COPYRIGHT ChangeLog README TODO Doc
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %dir %{py_sitedir}/%{module}/Cipher
 %dir %{py_sitedir}/%{module}/Hash
 %dir %{py_sitedir}/%{module}/Protocol
 %dir %{py_sitedir}/%{module}/PublicKey
+%dir %{py_sitedir}/%{module}/Random
+%dir %{py_sitedir}/%{module}/Random/Fortuna
+%dir %{py_sitedir}/%{module}/Random/OSRNG
 %dir %{py_sitedir}/%{module}/Util
 %attr(755,root,root) %{py_sitedir}/%{module}/*/*.so
 %{py_sitedir}/%{module}/*/*.py[co]
+%{py_sitedir}/%{module}/*/*/*.py[co]
+%if "%{py_ver}" > "2.4"
+%{py_sitedir}/pycrypto-*.egg-info
+%endif
