@@ -52,7 +52,8 @@ zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 %patch0 -p1
 
 %build
-export CFLAGS="%{rpmcflags}"
+CC="%{__cc}" \
+CFLAGS="%{rpmcflags}" \
 %{__python} setup.py build
 
 %install
