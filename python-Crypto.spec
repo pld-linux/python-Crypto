@@ -3,7 +3,7 @@ Summary:	PyCrypto - The Python Cryptography Toolkit
 Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
 Name:		python-%{module}
 Version:	2.1.0
-Release:	1
+Release:	2
 # Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
 License:	Public Domain and Python
 Group:		Development/Languages/Python
