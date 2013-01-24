@@ -3,7 +3,7 @@ Summary:	PyCrypto - The Python Cryptography Toolkit
 Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
 Name:		python-%{module}
 Version:	2.6
-Release:	1
+Release:	2
 # Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
 License:	Public Domain and Python
 Group:		Development/Languages/Python
@@ -62,7 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %py_postclean
 
-rm -rf $RPM_BUILD_ROOT%{py_sitedir}/Crypto/SelfTest
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/Crypto/SelfTest
 
 %clean
 rm -rf $RPM_BUILD_ROOT
