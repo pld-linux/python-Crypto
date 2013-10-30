@@ -2,13 +2,13 @@
 Summary:	PyCrypto - The Python Cryptography Toolkit
 Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
 Name:		python-%{module}
-Version:	2.6
-Release:	2
+Version:	2.6.1
+Release:	1
 # Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
 License:	Public Domain and Python
 Group:		Development/Languages/Python
 Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
-# Source0-md5:	88dad0a270d1fe83a39e0467a66a22bb
+# Source0-md5:	55a61a054aa66812daf5161a0d5d7eda
 URL:		http://www.dlitz.net/software/pycrypto/
 BuildRequires:	python
 BuildRequires:	python-devel >= 2.2
