@@ -5,8 +5,8 @@
 %bcond_without	python3 # CPython 3.x module
 
 %define		module	Crypto
-Summary:	PyCrypto - The Python Cryptography Toolkit
-Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
+Summary:	PyCrypto - The Python 2 Cryptography Toolkit
+Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python 2
 Name:		python-%{module}
 Version:	2.6.1
 Release:	2
@@ -36,7 +36,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The Toolkit is a collection of cryptographic algorithms and protocols,
-implemented for use from Python. Among the contents of the package:
+implemented for use from Python 2. Among the contents of the package:
 - hash functions: MD2, MD4, RIPEMD
 - block encryption algorithms: AES, ARC2, Blowfish, CAST, DES,
   Triple-DES, IDEA, RC5
@@ -49,7 +49,7 @@ implemented for use from Python. Among the contents of the package:
 
 %description -l pl.UTF-8
 Ten przybornik jest zbiorem kryptograficznych algorytmów i protokołów
-zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
+zaimplementowanych dla języka Python 2. Pakiet zawiera między innymi:
 - funkcje haszujące: MD2, MD4, RIPEMD
 - blokowe algorytmy szyfrujące: AES,ARC2, Blowfish, CAST, DES,
   Triple-DES, IDEA, RC5
@@ -58,16 +58,16 @@ zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 - protokoły: przekształcenia wszystko-albo-nic, chaffing/winnowing
 - inne: RFC1751 moduł do konwersji kluczy 128 bitowych w zbiory słów
   angielskich, test liczb pierwszych
-- programy demo (aktualnie odrobinę starych)
+- programy demonstracyjne (aktualnie odrobinę stare i nieaktualne)
 
 %package -n python3-%{module}
-Summary:	PyCrypto - The Python Cryptography Toolkit
-Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python
+Summary:	PyCrypto - The Python 3 Cryptography Toolkit
+Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python 3
 Group:		Development/Languages/Python
 
 %description -n python3-%{module}
 The Toolkit is a collection of cryptographic algorithms and protocols,
-implemented for use from Python. Among the contents of the package:
+implemented for use from Python 3. Among the contents of the package:
 - hash functions: MD2, MD4, RIPEMD
 - block encryption algorithms: AES, ARC2, Blowfish, CAST, DES,
   Triple-DES, IDEA, RC5
@@ -80,7 +80,7 @@ implemented for use from Python. Among the contents of the package:
 
 %description -n python3-%{module} -l pl.UTF-8
 Ten przybornik jest zbiorem kryptograficznych algorytmów i protokołów
-zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
+zaimplementowanych dla języka Python 3. Pakiet zawiera między innymi:
 - funkcje haszujące: MD2, MD4, RIPEMD
 - blokowe algorytmy szyfrujące: AES,ARC2, Blowfish, CAST, DES,
   Triple-DES, IDEA, RC5
@@ -89,7 +89,7 @@ zaimplementowanych dla języka Python. Pakiet zawiera między innymi:
 - protokoły: przekształcenia wszystko-albo-nic, chaffing/winnowing
 - inne: RFC1751 moduł do konwersji kluczy 128 bitowych w zbiory słów
   angielskich, test liczb pierwszych
-- programy demo (aktualnie odrobinę starych)
+- programy demonstracyjne (aktualnie odrobinę stare i nieaktualne)
 
 %prep
 %setup -q -n pycrypto-%{version}
