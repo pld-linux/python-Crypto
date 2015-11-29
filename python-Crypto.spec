@@ -28,7 +28,7 @@ BuildRequires:	python3-devel
 BuildRequires:	python3-modules
 %endif
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # Don't want provides for python shared objects
