@@ -16,19 +16,20 @@ Group:		Development/Languages/Python
 Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
 # Source0-md5:	55a61a054aa66812daf5161a0d5d7eda
 URL:		http://www.dlitz.net/software/pycrypto/
+BuildRequires:	gmp-devel
 %if %{with python2}
-BuildRequires:	python
+BuildRequires:	python >= 2.2
 BuildRequires:	python-devel >= 2.2
-BuildRequires:	python-modules
+BuildRequires:	python-modules >= 2.2
 %endif
 %if %{with python3}
-BuildRequires:	python3
-BuildRequires:	python3-2to3
-BuildRequires:	python3-devel
-BuildRequires:	python3-modules
+BuildRequires:	python3 >= 1:3.2
+BuildRequires:	python3-2to3 >= 1:3.2
+BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-modules >= 1:3.2
 %endif
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.710
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # Don't want provides for python shared objects
