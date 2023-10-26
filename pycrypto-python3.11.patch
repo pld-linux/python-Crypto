@@ -1,0 +1,12 @@
+--- a/src/_fastmath.c
++++ b/src/_fastmath.c
+@@ -30,7 +30,9 @@
+ #include <string.h>
+ #include "Python.h"
+ #include "pycrypto_compat.h"
++#if PY_VERSION_HEX < 0x030B0000
+ #include <longintrepr.h>				/* for conversions */
++#endif
+ #include "config.h"
+ #if HAVE_LIBGMP
+ # include <gmp.h>

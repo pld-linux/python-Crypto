@@ -1,6 +1,6 @@
 
 # Conditional build:
-%bcond_without	tests	# do not perform "make test"
+%bcond_without	tests	# unit tests
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
@@ -15,13 +15,26 @@ License:	Public Domain and Python
 Group:		Development/Languages/Python
 Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
 # Source0-md5:	55a61a054aa66812daf5161a0d5d7eda
-Patch0:		py38.patch
+Patch0:		pycrypto-optflags.patch
+Patch1:		pycrypto-CVE-2013-7459.patch
+Patch2:		pycrypto-CVE-2018-6594.patch
+Patch3:		pycrypto-fix-pubkey-size-divisions.patch
+Patch4:		pycrypto-unbundle-libtomcrypt.patch
+Patch5:		pycrypto-link.patch
+Patch6:		pycrypto-use-os-random.patch
+Patch7:		pycrypto-drop-py2.1-support.patch
+Patch8:		pycrypto-python3.10.patch
+Patch9:		pycrypto-python3.11.patch
+Patch10:	pycrypto-python3.12.patch
+Patch11:	pycrypto-no-distutils.patch
+Patch12:	pycrypto-SyntaxWarning.patch
+Patch13:	pycrypto-2to3.patch
 URL:		http://www.dlitz.net/software/pycrypto/
 BuildRequires:	gmp-devel
 %if %{with python2}
-BuildRequires:	python >= 2.2
-BuildRequires:	python-devel >= 2.2
-BuildRequires:	python-modules >= 2.2
+BuildRequires:	python >= 1:2.5
+BuildRequires:	python-devel >= 1:2.5
+BuildRequires:	python-modules >= 1:2.5
 %endif
 %if %{with python3}
 BuildRequires:	python3 >= 1:3.2
@@ -96,6 +109,19 @@ zaimplementowanych dla języka Python 3. Pakiet zawiera między innymi:
 %prep
 %setup -q -n pycrypto-%{version}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
 
 %build
 %if %{with python2}
@@ -133,20 +159,27 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %dir %{py_sitedir}/%{module}/Cipher
+%attr(755,root,root) %{py_sitedir}/%{module}/Cipher/_*.so
+%{py_sitedir}/%{module}/Cipher/*.py[co]
 %dir %{py_sitedir}/%{module}/Hash
+%attr(755,root,root) %{py_sitedir}/%{module}/Hash/_*.so
+%{py_sitedir}/%{module}/Hash/*.py[co]
 %dir %{py_sitedir}/%{module}/Protocol
+%{py_sitedir}/%{module}/Protocol/*.py[co]
 %dir %{py_sitedir}/%{module}/PublicKey
+%attr(755,root,root) %{py_sitedir}/%{module}/PublicKey/_fastmath.so
+%{py_sitedir}/%{module}/PublicKey/*.py[co]
 %dir %{py_sitedir}/%{module}/Random
+%{py_sitedir}/%{module}/Random/*.py[co]
 %dir %{py_sitedir}/%{module}/Random/Fortuna
-%dir %{py_sitedir}/%{module}/Random/OSRNG
+%{py_sitedir}/%{module}/Random/Fortuna/*.py[co]
 %dir %{py_sitedir}/%{module}/Signature
+%{py_sitedir}/%{module}/Signature/*.py[co]
 %dir %{py_sitedir}/%{module}/Util
-%attr(755,root,root) %{py_sitedir}/%{module}/*/*.so
-%{py_sitedir}/%{module}/*/*.py[co]
-%{py_sitedir}/%{module}/*/*/*.py[co]
-%if "%{py_ver}" > "2.4"
-%{py_sitedir}/pycrypto-*.egg-info
-%endif
+%attr(755,root,root) %{py_sitedir}/%{module}/Util/_counter.so
+%attr(755,root,root) %{py_sitedir}/%{module}/Util/strxor.so
+%{py_sitedir}/%{module}/Util/*.py[co]
+%{py_sitedir}/pycrypto-%{version}-py*.egg-info
 %endif
 
 %if %{with python3}
@@ -157,18 +190,33 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__
 %dir %{py3_sitedir}/%{module}/Cipher
+%attr(755,root,root) %{py3_sitedir}/%{module}/Cipher/_*.cpython-*.so
+%{py3_sitedir}/%{module}/Cipher/*.py
+%{py3_sitedir}/%{module}/Cipher/__pycache__
 %dir %{py3_sitedir}/%{module}/Hash
+%attr(755,root,root) %{py3_sitedir}/%{module}/Hash/_*.cpython-*.so
+%{py3_sitedir}/%{module}/Hash/*.py
+%{py3_sitedir}/%{module}/Hash/__pycache__
 %dir %{py3_sitedir}/%{module}/Protocol
+%{py3_sitedir}/%{module}/Protocol/*.py
+%{py3_sitedir}/%{module}/Protocol/__pycache__
 %dir %{py3_sitedir}/%{module}/PublicKey
+%attr(755,root,root) %{py3_sitedir}/%{module}/PublicKey/_fastmath.cpython-*.so
+%{py3_sitedir}/%{module}/PublicKey/*.py
+%{py3_sitedir}/%{module}/PublicKey/__pycache__
 %dir %{py3_sitedir}/%{module}/Random
+%{py3_sitedir}/%{module}/Random/*.py
+%{py3_sitedir}/%{module}/Random/__pycache__
 %dir %{py3_sitedir}/%{module}/Random/Fortuna
-%dir %{py3_sitedir}/%{module}/Random/OSRNG
+%{py3_sitedir}/%{module}/Random/Fortuna/*.py
+%{py3_sitedir}/%{module}/Random/Fortuna/__pycache__
 %dir %{py3_sitedir}/%{module}/Signature
+%{py3_sitedir}/%{module}/Signature/*.py
+%{py3_sitedir}/%{module}/Signature/__pycache__
 %dir %{py3_sitedir}/%{module}/Util
-%attr(755,root,root) %{py3_sitedir}/%{module}/*/*.so
-%{py3_sitedir}/%{module}/*/*.py
-%{py3_sitedir}/%{module}/*/__pycache__
-%{py3_sitedir}/%{module}/*/*/*.py
-%{py3_sitedir}/%{module}/*/*/__pycache__
-%{py3_sitedir}/pycrypto-*.egg-info
+%attr(755,root,root) %{py3_sitedir}/%{module}/Util/_counter.cpython-*.so
+%attr(755,root,root) %{py3_sitedir}/%{module}/Util/strxor.cpython-*.so
+%{py3_sitedir}/%{module}/Util/*.py
+%{py3_sitedir}/%{module}/Util/__pycache__
+%{py3_sitedir}/pycrypto-%{version}-py*.egg-info
 %endif
