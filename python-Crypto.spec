@@ -9,7 +9,7 @@ Summary:	PyCrypto - The Python 2 Cryptography Toolkit
 Summary(pl.UTF-8):	Kryptograficzny przybornik dla języka Python 2
 Name:		python-%{module}
 Version:	2.6.1
-Release:	19
+Release:	20
 # Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
 License:	Public Domain and Python
 Group:		Development/Languages/Python
@@ -28,9 +28,9 @@ Patch9:		pycrypto-python3.11.patch
 Patch10:	pycrypto-python3.12.patch
 Patch11:	pycrypto-no-distutils.patch
 Patch12:	pycrypto-SyntaxWarning.patch
-Patch13:	pycrypto-2to3.patch
 URL:		http://www.dlitz.net/software/pycrypto/
 BuildRequires:	gmp-devel
+BuildRequires:	libtomcrypt-devel
 %if %{with python2}
 BuildRequires:	python >= 1:2.5
 BuildRequires:	python-devel >= 1:2.5
@@ -38,7 +38,7 @@ BuildRequires:	python-modules >= 1:2.5
 %endif
 %if %{with python3}
 BuildRequires:	python3 >= 1:3.2
-BuildRequires:	python3-2to3 >= 1:3.2
+BuildRequires:	python3-fissix
 BuildRequires:	python3-devel >= 1:3.2
 BuildRequires:	python3-modules >= 1:3.2
 %endif
@@ -107,7 +107,9 @@ zaimplementowanych dla języka Python 3. Pakiet zawiera między innymi:
 - programy demonstracyjne (aktualnie odrobinę stare i nieaktualne)
 
 %prep
-%setup -q -n pycrypto-%{version}
+%setup -q -c
+mv pycrypto-%{version} pycrypto2
+cd pycrypto2
 %patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
@@ -121,32 +123,43 @@ zaimplementowanych dla języka Python 3. Pakiet zawiera między innymi:
 %patch -P 10 -p1
 %patch -P 11 -p1
 %patch -P 12 -p1
-%patch -P 13 -p1
+cd ..
+
+cp -a pycrypto2 pycrypto3
 
 %build
 %if %{with python2}
+cd pycrypto2
 %py_build %{?with_tests:test}
+cd ..
 %endif
 
 %if %{with python3}
+cd pycrypto3
+%{__python3} -m fissix -w -n --no-diffs .
 %py3_build %{?with_tests:test}
+cd ..
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
+cd pycrypto2
 %py_install
 
 %py_postclean
 
 %{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/Crypto/SelfTest
+cd ..
 %endif
 
 %if %{with python3}
+cd pycrypto3
 %py3_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitedir}/Crypto/SelfTest
+cd ..
 %endif
 
 %clean
@@ -155,7 +168,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc ACKS COPYRIGHT ChangeLog README TODO Doc
+%doc pycrypto2/{ACKS,COPYRIGHT,ChangeLog,README,TODO,Doc}
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %dir %{py_sitedir}/%{module}/Cipher
@@ -185,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc ACKS COPYRIGHT ChangeLog README TODO Doc
+%doc pycrypto2/{ACKS,COPYRIGHT,ChangeLog,README,TODO,Doc}
 %dir %{py3_sitedir}/%{module}
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__
